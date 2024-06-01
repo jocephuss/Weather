@@ -6,11 +6,13 @@ const currentDiv = document.querySelector('.current')
 const apiKey = 'c9856c9f13592af328d5d42e71f072cc'; // API key for openweathermap
 
 const createWeatherCard = (cityName, weatherItem, index) => {
+    const tempFahrenheit = ((weatherItem.main.temp - 273.15) * 9/5) + 32;
+    const windMph = weatherItem.wind.speed * 2.237;
     if (index === 0) {
         return `<div class="details">
         <h2>${cityName} (${weatherItem.dt_txt.split(" ")[0]})</h2>
-        <h4>Temperature: ${(weatherItem.main.temp - 273.15).toFixed(2)}°F</h4>
-            <h4>wind: ${weatherItem.wind.speed}mph</h4>
+        <h4>Temperature: ${tempFahrenheit.toFixed(2)}°F</h4>
+            <h4>wind: ${windMph.toFixed(2)} MPH</h4>
             <h4>Humidity: ${weatherItem.main.humidity}%</h4> 
     </div>
     <div class="icon">
@@ -22,8 +24,8 @@ const createWeatherCard = (cityName, weatherItem, index) => {
         return `<li class="card">
             <h3>(${weatherItem.dt_txt.split(" ")[0]})</h3>
             <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@2x.png" alt="weather icon">
-            <h4>Temp: ${(weatherItem.main.temp - 273.15).toFixed(2)}°F</h4>
-            <h4>wind: ${weatherItem.wind.speed}mph</h4>
+            <h4>Temp: ${tempFahrenheit.toFixed(2)}°F</h4>
+            <h4>wind: ${windMph.toFixed(2)} MPH</h4>
             <h4>Humidity: ${weatherItem.main.humidity}%</h4> 
             </li>`;
 
