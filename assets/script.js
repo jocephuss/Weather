@@ -45,6 +45,7 @@ const getWeatherDetails = (cityName, lat, lon) => {
             if (!forecastDays.includes(forecastDate)) {
                 return forecastDays.push(forecastDate);
             }
+            localStorage.setItem('lastCity', cityName);
         });
 
         //clear old data
@@ -114,5 +115,14 @@ const getUserCoordinates = () => {
     );
 }
 
+document.addEventListener('DOMContentLoaded', () =>  {
+    const lastCity = localStorage.getItem('lastCity');
+    if(lastCity) {
+        getCityCoordinates(lastCity);
+    }
+});
+
 locationBtn.addEventListener('click', getUserCoordinates);
+
+
 searchButton.addEventListener('click', getCityCoordinates);
