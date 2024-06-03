@@ -5,13 +5,14 @@ const cardsDiv = document.querySelector('.cards')
 const currentDiv = document.querySelector('.current')
 
 const apiKey = 'c9856c9f13592af328d5d42e71f072cc'; // API key for openweathermap
-
+// (${weatherItem.dt_txt.split(" ")[0]})
 const createWeatherCard = (cityName, weatherItem, index) => {
+    const currentDate = new Date();
     const tempFahrenheit = ((weatherItem.main.temp - 273.15) * 9/5) + 32;
     const windMph = weatherItem.wind.speed * 2.237;
     if (index === 0) {
         return `<div class="details">
-        <h2>${cityName} (${weatherItem.dt_txt.split(" ")[0]})</h2>
+        <h2>${cityName} ${currentDate.toDateString()}</h2>
         <h4>Temperature: ${tempFahrenheit.toFixed(2)}°F</h4>
             <h4>wind: ${windMph.toFixed(2)} MPH</h4>
             <h4>Humidity: ${weatherItem.main.humidity}%</h4> 
@@ -23,7 +24,7 @@ const createWeatherCard = (cityName, weatherItem, index) => {
 
     } else {
         return `<li class="card">
-            <h3>(${weatherItem.dt_txt.split(" ")[0]})</h3>
+            <h3>${weatherItem.dt_txt.split(" ")[0]}</h3>
             <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@2x.png" alt="weather icon">
             <h4>Temp: ${tempFahrenheit.toFixed(2)}°F</h4>
             <h4>wind: ${windMph.toFixed(2)} MPH</h4>
@@ -39,6 +40,7 @@ const getWeatherDetails = (cityName, lat, lon) => {
     const weatherApiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     fetch(weatherApiUrl).then(response => response.json()).then(data => {
         const forecastDays = [];
+        
 
         const fiveDayForecast = data.list.filter(forecast => {
             const forecastDate = new Date(forecast.dt_txt).getDate();
