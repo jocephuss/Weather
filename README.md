@@ -1,6 +1,9 @@
 # 5 Day Weather forecast
 Displays the 5 Day Forecast for whatever City is searched
 
+## Code Source
+JS and CSS located in Assets folder, HTML is in the root of Repo
+
 ## link
 https://jocephuss.github.io/Weather/
 
